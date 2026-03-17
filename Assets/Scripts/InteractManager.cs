@@ -3,41 +3,47 @@ using UnityEngine;
 public class InteractManager : MonoBehaviour
 {
     public float interactDistance = 3f;
+    public GameObject equipUI;
     public GameObject interactUI;
 
     private IInteractable currentInteractable;
+    private IEquipable currentEquipable;
 
     public GameObject itemEquippedUI;
 
     void Update()
     {
-        CheckInteraction();
+        CheckTarget();
 
-        if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            currentInteractable.Interact();
+            if (currentEquipable != null)
+            {
+                currentEquipable.Equip();
+            }
+            else if (currentInteractable != null)
+            {
+                currentInteractable.Interact();
+            }
         }
     }
 
-    void CheckInteraction()
+    void CheckTarget()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
+        currentEquipable = null;
+        currentInteractable = null;
+
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-
-            if (interactable != null)
-            {
-                interactUI.SetActive(true);
-                currentInteractable = interactable;
-                return;
-            }
+            currentEquipable = hit.collider.GetComponent<IEquipable>();
+            currentInteractable = hit.collider.GetComponent<IInteractable>();
         }
 
-        interactUI.SetActive(false);
-        currentInteractable = null;
+        equipUI.SetActive(currentEquipable != null);
+        interactUI.SetActive(currentInteractable != null && currentEquipable == null);
     }
 
 }
