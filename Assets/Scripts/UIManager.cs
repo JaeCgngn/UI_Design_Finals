@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [Header("Panels")]
     public GameObject settings;
     public GameObject pauseUI;
+    // public GameObject quest;
 
     private void Awake()
     {
@@ -20,8 +21,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        { 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             OpenPanel(settings);
         }
 
@@ -29,12 +30,14 @@ public class UIManager : MonoBehaviour
         {
             CloseCurrentPanel();
         }
-           
+
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     OpenPanel(quest);
+        // }
 
 
     }
-
-
 
 
     public void OpenBackgroundOverlay()
