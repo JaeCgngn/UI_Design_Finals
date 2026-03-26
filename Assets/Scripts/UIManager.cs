@@ -1,4 +1,6 @@
 using UnityEngine;
+using DG.Tweening;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -50,21 +52,29 @@ public class UIManager : MonoBehaviour
         BackgroundOverlay.SetActive(false);
     }
 
-    public void OpenPanel(GameObject panel) // Call this to open any panel, it will automatically close the currently open one
+    public void OpenPanel(GameObject panel)
     {
-        if (currentOpenPanel != null && currentOpenPanel != panel) // Close current panel if it's different from the one being opened
+        if (currentOpenPanel != null && currentOpenPanel != panel)
         {
             currentOpenPanel.SetActive(false);
         }
+
         currentOpenPanel = panel;
         panel.SetActive(true);
+
+        // Reset scale before animating
+        panel.transform.localScale = Vector3.zero;
+
+        // Pop-out animation
+        panel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+
         Time.timeScale = 0f;
         BackgroundOverlay.SetActive(true);
         InputLocked = true;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
     public void CloseCurrentPanel() // Call this to close whatever panel is currently open
     {
         if (currentOpenPanel != null)
