@@ -14,18 +14,20 @@ public class UIManager : MonoBehaviour
     [Header("Panels")]
     public GameObject settings;
     public GameObject pauseUI;
-    // public GameObject quest;
+    public GameObject menu;
+    public GameObject Title;
 
     private void Awake()
     {
         Instance = this;
+        TitleScreen();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenPanel(settings);
+            OpenPanel(menu);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -39,6 +41,11 @@ public class UIManager : MonoBehaviour
         // }
 
 
+    }
+
+    public void Start()
+    {
+        TitleScreen();
     }
 
 
@@ -87,5 +94,27 @@ public class UIManager : MonoBehaviour
         InputLocked = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void CloseTitle(GameObject title) 
+    {
+        title.SetActive(false);
+        Time.timeScale = 1f;
+        BackgroundOverlay.SetActive(false);
+        InputLocked = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void TitleScreen()
+    {
+        Title.SetActive(true);
+
+        Time.timeScale = 0f;
+        BackgroundOverlay.SetActive(true);
+        InputLocked = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
