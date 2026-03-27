@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject settings;
     public GameObject pauseUI;
     public GameObject menu;
-    public GameObject Title;
+    public GameObject title;
 
     private void Awake()
     {
@@ -96,7 +96,7 @@ public class UIManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void CloseTitle(GameObject title) 
+    public void StartGame() 
     {
         title.SetActive(false);
         Time.timeScale = 1f;
@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
 
     public void TitleScreen()
     {
-        Title.SetActive(true);
+        title.SetActive(true);
 
         Time.timeScale = 0f;
         BackgroundOverlay.SetActive(true);
@@ -117,4 +117,6 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
+
 }
