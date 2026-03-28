@@ -8,4 +8,12 @@ public class Chest : MonoBehaviour, IInteractable
     {
         UIManager.Instance.OpenPanel(inventoryPanel);
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.C)) 
+        {
+            UIManager.Instance.CloseCurrentPanel();
+        }
+    }
 }

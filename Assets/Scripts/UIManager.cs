@@ -19,8 +19,16 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        TitleScreen();
+        // Singleton setup
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

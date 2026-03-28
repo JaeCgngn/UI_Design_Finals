@@ -8,4 +8,12 @@ public class Board : MonoBehaviour, IInteractable
     {
         UIManager.Instance.OpenPanel(questPanel);
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            UIManager.Instance.CloseCurrentPanel();
+        }
+    }
 }
